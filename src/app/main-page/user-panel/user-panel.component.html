@@ -1,28 +1,46 @@
-<mat-tab-group class="prosumer-tab-group">
+<mat-tab-group class="prosumer-tab-group" (selectedTabChange)="onTabClick($event)">
+  
     <mat-tab label="Producer">
-        <form class="example-form">
+       
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Consumer Name" >
+              <input matInput placeholder="Producer Name"  [(ngModel)]="prod_name" >
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Address" >
+              <input matInput placeholder="Address"  [(ngModel)]="prod_address" >
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="CNP" >
+              <input matInput placeholder="CNP"  [(ngModel)]="prod_cnp" >
             </mat-form-field>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Consumption" >
-            </mat-form-field>
+
+            <div id="producerContainer" ></div>
           
             <div class="button-area">
-                <button type="button" mat-raised-button color="primary">Add Producer</button>
+                <button type="button" (click)="addProducer($event)" mat-raised-button color="primary">Add Producer</button>
             </div>
             
-          </form>
+     
+          
       </mat-tab>
 
       <mat-tab label="Consumer">
-        Consumer
+        <form class="consumer-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Consumer Name" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Address" >
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="CNP" >
+          </mat-form-field>
+
+          <div id="consumerContainer" ></div>
+        
+          <div class="button-area">
+              <button type="button" (click)="addConsumer($event)" mat-raised-button color="primary">Add Consumer</button>
+          </div>
+          
+        </form>
         </mat-tab>
 
       </mat-tab-group>

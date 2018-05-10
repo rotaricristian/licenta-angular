@@ -1,11 +1,12 @@
+<div [ngBusy]="{busy: busy, message: 'Please Wait', backdrop: true, delay: 0, minDuration: 600}"></div>
 <mat-grid-list cols="6" rowHeight="100px" >
     <mat-grid-tile  [colspan]="4" [rowspan]="5"  >
       <div>
-          <graph-area></graph-area>>
+          <graph-area></graph-area>
       </div>
     </mat-grid-tile>
 
-    <mat-grid-tile  [colspan]="2" [rowspan]="6"  >
+    <mat-grid-tile  [colspan]="2" [rowspan]="8"  >
       <div class="user-panel">
           <user-panel></user-panel>
       </div>

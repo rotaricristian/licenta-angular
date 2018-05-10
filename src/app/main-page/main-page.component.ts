@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  busy: Promise<any>;
+
   constructor() { }
 
   ngOnInit() {
+    this.busy = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("Async Work Complete");
+        resolve();
+      }, 3000);
+    });
   }
 
 }

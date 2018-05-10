@@ -1,10 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatInputModule} from '@angular/material/input';
+import {NgxGraphModule} from '@swimlane/ngx-graph';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {BusyModule} from 'angular2-busy';
+
 
 import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -24,9 +29,13 @@ import { UserPanelComponent } from './main-page/user-panel/user-panel.component'
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatGridListModule,
     MatButtonModule,
     MatTabsModule,
+    NgxChartsModule,
+    NgxGraphModule,
+    BusyModule, 
     MatInputModule   
   ],
   providers: [],
