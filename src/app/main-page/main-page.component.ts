@@ -7,17 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  busy: Promise<any>;
+  // busy: Promise<any>;
+
+  showCurves:boolean=false;
 
   constructor() { }
 
   ngOnInit() {
-    this.busy = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log("Async Work Complete");
-        resolve();
-      }, 3000);
-    });
+
+    // this.busy = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     console.log("Async Work Complete");
+    //     resolve();
+    //   }, 3000);
+    // });
+  }
+
+  startSimulation(){
+    this.showCurves=true;
   }
 
 }

@@ -1,3 +1,11 @@
+<ngx-loading 
+[show]="loading" 
+[config]="{ backdropBorderRadius: '0px',
+  fullScreenBackdrop:true, 
+  primaryColour:'blue',
+  secondaryColour:'blue',
+  tertiaryColour:'blue' }"></ngx-loading>
+
 <mat-tab-group class="prosumer-tab-group" (selectedTabChange)="onTabClick($event)">
   
     <mat-tab label="Producer">
@@ -23,7 +31,7 @@
       </mat-tab>
 
       <mat-tab label="Consumer">
-        <form class="consumer-form">
+       
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Consumer Name" >
           </mat-form-field>
@@ -39,8 +47,15 @@
           <div class="button-area">
               <button type="button" (click)="addConsumer($event)" mat-raised-button color="primary">Add Consumer</button>
           </div>
-          
-        </form>
+
         </mat-tab>
+
+        <mat-tab *ngIf="true"  label="Curves">
+
+          <div id="productionContainer" ></div> 
+          <div id="consumptionContainer" ></div> 
+          <div id="balanceContainer" ></div>        
+
+          </mat-tab>
 
       </mat-tab-group>

@@ -1,5 +1,8 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material';
+import { ServerConnectionService } from '../../server-connection/server-connection.service';
+import { Prosumer } from '../../interfaces.type';
+
 var Highcharts = require('highcharts');
 require('highcharts-draggable-points')(Highcharts);
 
@@ -10,19 +13,35 @@ require('highcharts-draggable-points')(Highcharts);
 })
 export class UserPanelComponent implements AfterViewInit {
 
+    public loading = false;
+
     public prod_name :string = "";
     public prod_cnp :string = "";
     public prod_address :string = "";
     private production: Array<number>=[];
 
 
-  constructor() { }
+    private consumerChart=null;
+    private producerChart=null;
+    private demandChart=null;
+    private productionChart=null;
+    private balanceChart=null;
 
-  private consumerChart=null;
-  private producerChart=null;
+    private _showCurves:boolean;
+
+    @Input() set showCurves(value: boolean) {
+        console.log('set')
+        this._showCurves = value;
+       
+    }
+
+
+  constructor(private serverService: ServerConnectionService) { }
+
   
 
   ngAfterViewInit()  {
+
    
     this.producerChart = new Highcharts.Chart({
       
@@ -30,7 +49,7 @@ export class UserPanelComponent implements AfterViewInit {
               renderTo: 'producerContainer',
               animation: false,
               height: 200,
-              backgroundColor: 'lightblue'
+              backgroundColor: '#DDDDDD'
               //margin: [0, 0, 0, 0]
           },
           legend: {
@@ -54,7 +73,7 @@ export class UserPanelComponent implements AfterViewInit {
             title: {
                 text: 'Hour'
             },
-              categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+              categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
           },
       
           plotOptions: {
@@ -93,9 +112,6 @@ export class UserPanelComponent implements AfterViewInit {
   }
 
   addProducer(event){
-    console.log(this.prod_name);
-    console.log(this.prod_cnp);
-    console.log(this.prod_address);
 
     for(var i =0;i<24;i++){
         this.producerChart.series[0].data[i].y
@@ -104,8 +120,27 @@ export class UserPanelComponent implements AfterViewInit {
         this.production[4*i+2]=Math.round(this.producerChart.series[0].data[i].y/4);
         this.production[4*i+3]=Math.round(this.producerChart.series[0].data[i].y/4);
     }
-    console.log(this.production);
 
+    var prosumer :Prosumer ={
+        name:'',
+        cnp:'',
+        address:'',
+        baseline:[]
+    }
+    prosumer.name=this.prod_name;
+    prosumer.cnp=this.prod_cnp;
+    prosumer.address=this.prod_address;
+    prosumer.baseline=this.production;
+    this.loading=true;
+    console.log('start');
+    this.serverService.addProducer(prosumer).subscribe(
+              data => { console.log(data)},
+              err => console.error(err),
+              () => {
+                  console.log('over');
+                  this.loading=false;
+              }
+            );
 
   }
 
@@ -114,14 +149,153 @@ export class UserPanelComponent implements AfterViewInit {
     }
 
   onTabClick(event: MatTabChangeEvent) {
-    if(this.consumerChart==null){
-        this.consumerChart = new Highcharts.Chart({
+    if(event.index==1){
+        if(this.consumerChart==null){
+            this.consumerChart = new Highcharts.Chart({
+                
+                    chart: {
+                        renderTo: 'consumerContainer',
+                        animation: false,
+                        height: 200,
+                        backgroundColor: '#DDDDDD'
+                        //margin: [0, 0, 0, 0]
+                    },
+                    legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                    
+                    title: {
+                        text: 'Estimated Consumption During the day'
+                    },
+                    yAxis: {
+                    allowDecimals: false,
+                    title: {
+                        text: 'KWh'
+                    }
+                    },
+                
+                    xAxis: {
+                    title: {
+                        text: 'Hour'
+                    },
+                        categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
+                    },
+                
+                    plotOptions: {
+                        series: {
+                            dragMaxY:500,
+                            dragMinY:0,
+                            dragPrecisionY:1,
+                            color: 'red',
+                            point: {
+                                events: {
+                
+                                    drag: function (e) {
+                                    },
+                                    drop: function () {
+                                    //console.log(chart.series[0].data[0].y);
+                                    }
+                                }
+                            },
+                            stickyTracking: false
+                        },
+                        line: {
+                            cursor: 'ns-resize'
+                        }
+                    },
+                
+                
+                
+                    series: [ {
+                        data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                        draggableY: true
+                    }]
+                
+                });
+        }
+    } else if(event.index==2 && this._showCurves){
+        this.createGridCharts();
+    }
+
+  }
+
+  createGridCharts(){
+      if(this.productionChart!=null) return;
+    this.productionChart = new Highcharts.Chart({
+        
+            chart: {
+                renderTo: 'productionContainer',
+                animation: false,
+                height: 185,
+                backgroundColor: '#DDDDDD'
+                //margin: [0, 0, 0, 0]
+            },
+            legend: {
+              enabled: false
+           },
+           credits: {
+              enabled: false
+          },
+            
+            title: {
+                text: 'Total Estimated Grid Production'
+            },
+            yAxis: {
+              allowDecimals: false,
+              title: {
+                  text: 'KWh'
+              }
+            },
+        
+            xAxis: {
+              title: {
+                  text: 'Hour'
+              },
+                categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+            },
+        
+            plotOptions: {
+                series: {
+                   // dragMaxY:500,
+                    dragMinY:0,
+                    dragPrecisionY:1,
+                    color: 'green',
+                    point: {
+                        events: {
+        
+                            drag: function (e) {
+                            },
+                            drop: function () {
+                              //console.log(chart.series[0].data[0].y);
+                              }
+                        }
+                    },
+                    stickyTracking: false
+                },
+                line: {
+                    cursor: 'ns-resize'
+                }
+            },
+        
+           
+        
+            series: [ {
+                data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                draggableY: false
+            }]
+        
+        });
+
+        this.demandChart = new Highcharts.Chart({
             
                 chart: {
-                    renderTo: 'consumerContainer',
+                    renderTo: 'consumptionContainer',
                     animation: false,
-                    height: 200,
-                    backgroundColor: 'lightblue'
+                    height: 185,
+                    backgroundColor: '#DDDDDD'
                     //margin: [0, 0, 0, 0]
                 },
                 legend: {
@@ -132,7 +306,7 @@ export class UserPanelComponent implements AfterViewInit {
               },
                 
                 title: {
-                    text: 'Estimated Consumption During the day'
+                    text: 'Total Estimated Grid Consumption'
                 },
                 yAxis: {
                   allowDecimals: false,
@@ -150,7 +324,7 @@ export class UserPanelComponent implements AfterViewInit {
             
                 plotOptions: {
                     series: {
-                        dragMaxY:500,
+                       // dragMaxY:500,
                         dragMinY:0,
                         dragPrecisionY:1,
                         color: 'red',
@@ -175,12 +349,74 @@ export class UserPanelComponent implements AfterViewInit {
             
                 series: [ {
                     data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
-                    draggableY: true
+                    draggableY: false
                 }]
             
             });
-    }
-
+            this.balanceChart = new Highcharts.Chart({
+                
+                    chart: {
+                        renderTo: 'balanceContainer',
+                        animation: false,
+                        height: 185,
+                        backgroundColor: '#DDDDDD'
+                        //margin: [0, 0, 0, 0]
+                    },
+                    legend: {
+                      enabled: false
+                   },
+                   credits: {
+                      enabled: false
+                  },
+                    
+                    title: {
+                        text: 'Estimated Grid Balance'
+                    },
+                    yAxis: {
+                      allowDecimals: false,
+                      title: {
+                          text: 'KWh'
+                      }
+                    },
+                
+                    xAxis: {
+                      title: {
+                          text: 'Hour'
+                      },
+                        categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+                    },
+                
+                    plotOptions: {
+                        series: {
+                           // dragMaxY:500,
+                            dragMinY:0,
+                            dragPrecisionY:1,
+                            color: 'blue',
+                            point: {
+                                events: {
+                
+                                    drag: function (e) {
+                                    },
+                                    drop: function () {
+                                      //console.log(chart.series[0].data[0].y);
+                                      }
+                                }
+                            },
+                            stickyTracking: false
+                        },
+                        line: {
+                            cursor: 'ns-resize'
+                        }
+                    },
+                
+                   
+                
+                    series: [ {
+                        data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                        draggableY: false
+                    }]
+                
+                });
   }
 
 }
