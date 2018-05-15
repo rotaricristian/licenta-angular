@@ -1,4 +1,13 @@
 <!-- <div [ngBusy]="{busy: busy, message: 'Please Wait', backdrop: true, delay: 0, minDuration: 600}"></div> -->
+
+<ngx-loading 
+[show]="loading" 
+[config]="{ backdropBorderRadius: '0px',
+  fullScreenBackdrop:true, 
+  primaryColour:'blue',
+  secondaryColour:'blue',
+  tertiaryColour:'blue' }"></ngx-loading>
+  
 <mat-grid-list cols="6" rowHeight="100px" >
     <mat-grid-tile  [colspan]="4" [rowspan]="6"  >
       <div class="graph-area">

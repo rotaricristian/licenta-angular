@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServerConnectionService } from '../server-connection/server-connection.service';
 
 @Component({
   selector: 'main-page',
@@ -7,20 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  // busy: Promise<any>;
-
+  loading:boolean = true;
   showCurves:boolean=false;
 
-  constructor() { }
+  constructor(private serverService: ServerConnectionService) { }
 
   ngOnInit() {
-
-    // this.busy = new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     console.log("Async Work Complete");
-    //     resolve();
-    //   }, 3000);
-    // });
+    this.serverService.deployGrid().subscribe(
+      data => { console.log(data)},
+      err => {
+        console.error(err);
+        if(err.status==409) this.loading=false;
+      },
+      () => {
+          this.loading=false;
+      }
+    );
   }
 
   startSimulation(){

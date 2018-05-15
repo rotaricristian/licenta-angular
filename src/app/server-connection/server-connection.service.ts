@@ -7,33 +7,29 @@ import {Observable} from 'rxjs/Observable';
 
 
 
+
 @Injectable()
 export class ServerConnectionService {
 
   constructor(private http: HttpClient) { }
 
-  
+  deployGrid(){
+        return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid', {
+          observe: 'response'
+        });
+  }
 
   getProsumer(prosumer: Prosumer){
 
-    return this.http.get('http://httpbin.org/get', {
-      params: {
-        name: prosumer.name,
-        cnp: prosumer.cnp
-      },
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid', {
       observe: 'response'
-    })
-   .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    });
   }
 
   addConsumer(consumer:Prosumer){
-    return this.http.post('http://httpbin.org/post', {
-      params: {
-        Prosumer:consumer
-      },
-      observe: 'response'
-    })
-   .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    return this.http.post('http://192.168.0.24:8090/energyGridBlockchain/grid/consumer', 
+     consumer
+    );
   }
 
   addProducer(producer: Prosumer){

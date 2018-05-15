@@ -120,22 +120,26 @@ export class UserPanelComponent implements AfterViewInit {
         this.production[4*i+2]=Math.round(this.producerChart.series[0].data[i].y/4);
         this.production[4*i+3]=Math.round(this.producerChart.series[0].data[i].y/4);
     }
+    console.log(this.production);
 
     var prosumer :Prosumer ={
         name:'',
         cnp:'',
-        address:'',
-        baseline:[]
+        homeAddress:'',
+        baselineConsumption:[]
     }
     prosumer.name=this.prod_name;
     prosumer.cnp=this.prod_cnp;
-    prosumer.address=this.prod_address;
-    prosumer.baseline=this.production;
+    prosumer.homeAddress=this.prod_address;
+    prosumer.baselineConsumption=this.production;
     this.loading=true;
     console.log('start');
-    this.serverService.addProducer(prosumer).subscribe(
+    this.serverService.addConsumer(prosumer).subscribe(
               data => { console.log(data)},
-              err => console.error(err),
+              err => {
+                  if(err) this.loading =false;
+                  console.error(err);}
+                  ,
               () => {
                   console.log('over');
                   this.loading=false;

@@ -1,6 +1,6 @@
 export interface Prosumer {
     name: string;
-    address: string;
+    homeAddress: string;
     cnp:string;
-    baseline:Array<number>;
+    baselineConsumption:Array<number>;
   }
