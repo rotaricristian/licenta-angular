@@ -1,0 +1,44 @@
+<div class="graph-container">
+  <ngx-graph
+class="chart-container"
+[view]="view"
+[legend]="showLegend"
+[links]="hierarchialGraph.links"
+(legendLabelClick)="onLegendLabelClick($event)"
+[nodes]="hierarchialGraph.nodes"
+[scheme]="colorScheme"
+[orientation]="orientation"
+[curve]="curve"
+[draggingEnabled]=false
+[autoCenter]="autoCenter"
+[autoZoom]=true
+(select)="select($event)">
+
+<ng-template #nodeTemplate let-node>
+  <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'" [tooltipTitle]="node.label">
+    <svg:circle [attr.r]="node.width/2" [attr.cx]="node.width/2" [attr.cy]="node.width/2" [attr.fill]="node.color" />
+    <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
+  </svg:g>
+</ng-template>
+
+<ng-template #linkTemplate let-link>
+        <svg:g class="edge">
+          <svg:path
+            class="line"
+            stroke-width="2"
+            >
+          </svg:path>
+          <svg:text class="edge-label" text-anchor="middle">
+            <textPath
+              class="text-path"
+              [attr.href]="'#' + link.id"
+              [style.dominant-baseline]="link.dominantBaseline"
+              startOffset="50%">
+              {{link.label}}
+            </textPath>
+          </svg:text>
+        </svg:g>
+      </ng-template>
+
+</ngx-graph>
+</div> 
