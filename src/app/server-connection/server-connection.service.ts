@@ -19,9 +19,33 @@ export class ServerConnectionService {
         });
   }
 
-  getProsumer(prosumer: Prosumer){
+  getGridBalance(){
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/balanceCurve', {
+      observe: 'response'
+    });
+  }
 
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid', {
+  getGridDemand(){
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/demandCurve', {
+      observe: 'response'
+    });
+  }
+
+  getGridProduction(){
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/productionCurve', {
+      observe: 'response'
+    });
+  }
+
+  getAllConsumers(){
+
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/consumer', {
+      observe: 'response'
+    });
+  }
+
+  getAllProducers(){
+    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/producer', {
       observe: 'response'
     });
   }
@@ -33,19 +57,9 @@ export class ServerConnectionService {
   }
 
   addProducer(producer: Prosumer){
-    return this.http.post('http://httpbin.org/post', {
-      params: {
-        Prosumer:producer
-      },
-      observe: 'response'
-    })
-   .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+    return this.http.post('http://192.168.0.24:8090/energyGridBlockchain/grid/producer', 
+    producer
+   );
   }
 
-  getAllProsumers(){
-    return this.http.get('http://httpbin.org/get', {
-      observe: 'response'
-    })
-   .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }
 }
