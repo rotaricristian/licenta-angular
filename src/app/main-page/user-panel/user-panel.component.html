@@ -33,13 +33,13 @@
       <mat-tab label="Consumer">
        
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Consumer Name" >
+            <input matInput placeholder="Consumer Name"  [(ngModel)]="cons_name" >
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Address" >
+            <input matInput placeholder="Address" [(ngModel)]="cons_address">
           </mat-form-field>
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="CNP" >
+            <input matInput placeholder="CNP" [(ngModel)]="cons_cnp" >
           </mat-form-field>
 
           <div id="consumerContainer" ></div>

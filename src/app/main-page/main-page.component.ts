@@ -10,6 +10,7 @@ export class MainPageComponent implements OnInit {
 
   loading:boolean = true;
   showCurves:boolean=false;
+  refreshGraph:boolean=false;
 
   constructor(private serverService: ServerConnectionService) { }
 
@@ -18,7 +19,7 @@ export class MainPageComponent implements OnInit {
       data => { console.log(data)},
       err => {
         console.error(err);
-        if(err.status==409) this.loading=false;
+        this.loading=false;
       },
       () => {
           this.loading=false;
@@ -28,6 +29,10 @@ export class MainPageComponent implements OnInit {
 
   startSimulation(){
     this.showCurves=true;
+  }
+
+  updateGraph(){
+    this.refreshGraph=true;
   }
 
 }

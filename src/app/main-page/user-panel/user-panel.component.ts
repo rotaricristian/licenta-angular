@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material';
 import { ServerConnectionService } from '../../server-connection/server-connection.service';
 import { Prosumer } from '../../interfaces.type';
@@ -13,12 +13,20 @@ require('highcharts-draggable-points')(Highcharts);
 })
 export class UserPanelComponent implements AfterViewInit {
 
+
+    constructor(private serverService: ServerConnectionService) { }
+    
     public loading = false;
 
     public prod_name :string = "";
     public prod_cnp :string = "";
     public prod_address :string = "";
-    private production: Array<number>=[];
+
+    public cons_name :string = "";
+    public cons_cnp :string = "";
+    public cons_address :string = "";
+
+    private curve: Array<number>=[];
 
 
     private consumerChart=null;
@@ -32,17 +40,12 @@ export class UserPanelComponent implements AfterViewInit {
     @Input() set showCurves(value: boolean) {
         console.log('set')
         this._showCurves = value;
-       
     }
 
-
-  constructor(private serverService: ServerConnectionService) { }
-
+    @Output() updateGraph: EventEmitter<any> = new EventEmitter<any>();
   
 
   ngAfterViewInit()  {
-
-   
     this.producerChart = new Highcharts.Chart({
       
           chart: {
@@ -114,13 +117,11 @@ export class UserPanelComponent implements AfterViewInit {
   addProducer(event){
 
     for(var i =0;i<24;i++){
-        this.producerChart.series[0].data[i].y
-        this.production[4*i]=Math.round(this.producerChart.series[0].data[i].y/4);
-        this.production[4*i+1]=Math.round(this.producerChart.series[0].data[i].y/4);
-        this.production[4*i+2]=Math.round(this.producerChart.series[0].data[i].y/4);
-        this.production[4*i+3]=Math.round(this.producerChart.series[0].data[i].y/4);
+        this.curve[4*i]=Math.round(this.producerChart.series[0].data[i].y/4);
+        this.curve[4*i+1]=Math.round(this.producerChart.series[0].data[i].y/4);
+        this.curve[4*i+2]=Math.round(this.producerChart.series[0].data[i].y/4);
+        this.curve[4*i+3]=Math.round(this.producerChart.series[0].data[i].y/4);
     }
-    console.log(this.production);
 
     var prosumer :Prosumer ={
         name:'',
@@ -131,25 +132,65 @@ export class UserPanelComponent implements AfterViewInit {
     prosumer.name=this.prod_name;
     prosumer.cnp=this.prod_cnp;
     prosumer.homeAddress=this.prod_address;
-    prosumer.baselineConsumption=this.production;
+    prosumer.baselineConsumption=this.curve;
     this.loading=true;
-    console.log('start');
-    this.serverService.addConsumer(prosumer).subscribe(
-              data => { console.log(data)},
+    this.serverService.addProducer(prosumer).subscribe(
+              data => { 
+                  this.updateGraph.emit();
+                  console.log(data)},
               err => {
-                  if(err) this.loading =false;
-                  console.error(err);}
+                    this.loading =false;
+                    console.error(err);}
                   ,
               () => {
-                  console.log('over');
                   this.loading=false;
               }
             );
+    // this.serverService.getConsumers().subscribe(
+    //     data => { console.log(data)},
+    //     err => {
+    //         if(err) this.loading =false;
+    //         console.error(err);}
+    //         ,
+    //     () => {
+    //         console.log('over');
+    //         this.loading=false;
+    //     }
+    //   );
+
 
   }
 
   addConsumer(event){
-    console.log('addc');
+    for(var i =0;i<24;i++){
+        this.curve[4*i]=Math.round(this.consumerChart.series[0].data[i].y/4);
+        this.curve[4*i+1]=Math.round(this.consumerChart.series[0].data[i].y/4);
+        this.curve[4*i+2]=Math.round(this.consumerChart.series[0].data[i].y/4);
+        this.curve[4*i+3]=Math.round(this.consumerChart.series[0].data[i].y/4);
+    }
+
+    var prosumer :Prosumer ={
+        name:'',
+        cnp:'',
+        homeAddress:'',
+        baselineConsumption:[]
+    }
+    prosumer.name=this.cons_name;
+    prosumer.cnp=this.cons_cnp;
+    prosumer.homeAddress=this.cons_address;
+    prosumer.baselineConsumption=this.curve;
+    this.loading=true;
+    this.serverService.addConsumer(prosumer).subscribe(
+              data => { console.log(data);
+                this.updateGraph.emit();},
+              err => {
+                    this.loading =false;
+                    console.error(err);}
+                  ,
+              () => {
+                  this.loading=false;
+              }
+            );
     }
 
   onTabClick(event: MatTabChangeEvent) {
@@ -228,6 +269,40 @@ export class UserPanelComponent implements AfterViewInit {
 
   createGridCharts(){
       if(this.productionChart!=null) return;
+      var gridProd=[];
+      var gridCons=[];
+      var gridBalance=[];
+       this.serverService.getGridProduction().subscribe(
+        data => { console.log(data);
+                    //gridProd = (data.body);
+                },
+        err => {
+              console.error(err);}
+            ,
+        () => {
+        }
+      );
+      this.serverService.getGridBalance().subscribe(
+        data => { console.log(data);
+                    //gridBalance = (data.body);
+                },
+        err => {
+              console.error(err);}
+            ,
+        () => {
+        }
+      );
+      this.serverService.getGridDemand().subscribe(
+        data => { console.log(data);
+                    //gridCons = (data.body);
+                },
+        err => {
+              console.error(err);}
+            ,
+        () => {
+        }
+      );
+
     this.productionChart = new Highcharts.Chart({
         
             chart: {
@@ -258,7 +333,7 @@ export class UserPanelComponent implements AfterViewInit {
               title: {
                   text: 'Hour'
               },
-                categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+                //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
             },
         
             plotOptions: {
@@ -287,7 +362,7 @@ export class UserPanelComponent implements AfterViewInit {
            
         
             series: [ {
-                data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                data:gridProd,
                 draggableY: false
             }]
         
@@ -323,7 +398,7 @@ export class UserPanelComponent implements AfterViewInit {
                   title: {
                       text: 'Hour'
                   },
-                    categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+                    //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                 },
             
                 plotOptions: {
@@ -352,7 +427,7 @@ export class UserPanelComponent implements AfterViewInit {
                
             
                 series: [ {
-                    data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                    data: gridCons,
                     draggableY: false
                 }]
             
@@ -387,7 +462,7 @@ export class UserPanelComponent implements AfterViewInit {
                       title: {
                           text: 'Hour'
                       },
-                        categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+                        //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                     },
                 
                     plotOptions: {
@@ -416,7 +491,7 @@ export class UserPanelComponent implements AfterViewInit {
                    
                 
                     series: [ {
-                        data: [15, 71, 56, 69, 74, 76, 55, 68, 16, 64, 55, 54, 71, 56, 59, 44, 66, 75, 68, 96, 94, 95, 54,19],
+                        data:gridBalance,
                         draggableY: false
                     }]
                 
