@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter } from '@
 import { MatTabChangeEvent } from '@angular/material';
 import { ServerConnectionService } from '../../server-connection/server-connection.service';
 import { Prosumer } from '../../interfaces.type';
+import { Observable } from 'rxjs/Observable';
 
 var Highcharts = require('highcharts');
 require('highcharts-draggable-points')(Highcharts);
@@ -146,17 +147,6 @@ export class UserPanelComponent implements AfterViewInit {
                   this.loading=false;
               }
             );
-    // this.serverService.getConsumers().subscribe(
-    //     data => { console.log(data)},
-    //     err => {
-    //         if(err) this.loading =false;
-    //         console.error(err);}
-    //         ,
-    //     () => {
-    //         console.log('over');
-    //         this.loading=false;
-    //     }
-    //   );
 
 
   }
@@ -268,42 +258,23 @@ export class UserPanelComponent implements AfterViewInit {
   }
 
   createGridCharts(){
-      if(this.productionChart!=null) return;
-      var gridProd=[];
-      var gridCons=[];
-      var gridBalance=[];
-       this.serverService.getGridProduction().subscribe(
-        data => { console.log(data);
-                    //gridProd = (data.body);
-                },
-        err => {
-              console.error(err);}
-            ,
-        () => {
-        }
-      );
-      this.serverService.getGridBalance().subscribe(
-        data => { console.log(data);
-                    //gridBalance = (data.body);
-                },
-        err => {
-              console.error(err);}
-            ,
-        () => {
-        }
-      );
-      this.serverService.getGridDemand().subscribe(
-        data => { console.log(data);
-                    //gridCons = (data.body);
-                },
-        err => {
-              console.error(err);}
-            ,
-        () => {
-        }
-      );
 
-    this.productionChart = new Highcharts.Chart({
+     // if(this.productionChart!=null) return;
+      var gridProd:any=[];
+      var gridCons:any=[];
+      var gridBalance:any=[];
+
+      Observable.forkJoin(
+        this.serverService.getGridProduction(),
+        this.serverService.getGridBalance(),
+        this.serverService.getGridDemand(),
+    ).subscribe(response => {
+        gridProd = <any>response[0].body;
+        gridBalance = <any>response[1].body;
+        gridCons = <any>response[2].body;
+
+
+        this.productionChart = new Highcharts.Chart({
         
             chart: {
                 renderTo: 'productionContainer',
@@ -496,6 +467,8 @@ export class UserPanelComponent implements AfterViewInit {
                     }]
                 
                 });
+    });
+
   }
 
 }
