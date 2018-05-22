@@ -18,21 +18,24 @@ export class MainPageComponent implements OnInit {
     this.serverService.deployGrid().subscribe(
       data => { console.log(data)},
       err => {
-        console.error(err);
+
         this.loading=false;
       },
       () => {
           this.loading=false;
+
       }
     );
   }
 
   startSimulation(){
+    console.log('startSimulation')
     this.showCurves=true;
   }
 
   updateGraph(){
-    this.refreshGraph=true;
+    console.log('update graph')
+    this.refreshGraph=!this.refreshGraph;
   }
 
 }

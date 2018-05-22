@@ -30,11 +30,7 @@ export class GraphAreaComponent implements OnInit {
     links: [  
       
     ],
-    nodes: [  {
-        id: 'nodul',
-        label: 'lalala',
-        color: '#A10A28'
-      }
+    nodes: [ 
     ],
   };
   public colorScheme = {
@@ -48,23 +44,22 @@ export class GraphAreaComponent implements OnInit {
   }
 
   select($event){
-    console.log($event.id);
     this.router.navigate(['node',$event.id]);
      
   }
 
   updateGraph(){
-
+    console.log('update')
     Observable.forkJoin(
       this.serverService.getAllConsumers(),
       this.serverService.getAllProducers()
   ).subscribe(response => {
-      this.consumers = <any>response[0].body;
-      this.producers = <any>response[1].body;
+    this.consumers = <any>response[0].body;
+    this.producers = <any>response[1].body;
 
-
-      this.hierarchialGraph.nodes=[];
+    this.hierarchialGraph.nodes=[];
     this.hierarchialGraph.links=[];
+
     for( var cons of this.consumers){
       this.hierarchialGraph.nodes.push({
         id:''+cons.cnp,
@@ -83,56 +78,42 @@ export class GraphAreaComponent implements OnInit {
       var random;
       if(this.hierarchialGraph.nodes.length>1){
       do{
-        random = Math.floor((Math.random() * (this.hierarchialGraph.nodes.length-1)));
+        random = Math.floor((Math.random() * (this.hierarchialGraph.nodes.length)));
       }while(random==i);
+      if(!this.contains(this.hierarchialGraph.nodes[i].id,this.hierarchialGraph.nodes[random].id)){
       this.hierarchialGraph.links.push({
         source:''+this.hierarchialGraph.nodes[i].id,
         target:this.hierarchialGraph.nodes[random].id
       });
+    }
 
       do{
-        random = Math.floor((Math.random() * (this.hierarchialGraph.nodes.length-1)));
+        random = Math.floor((Math.random() * (this.hierarchialGraph.nodes.length)));
       }while(random==i);
-      this.hierarchialGraph.links.push({
-        source:''+this.hierarchialGraph.nodes[i].id,
-        target:this.hierarchialGraph.nodes[random].id
-      });
+      if(!this.contains(this.hierarchialGraph.nodes[i].id,this.hierarchialGraph.nodes[random].id)){
+        this.hierarchialGraph.links.push({
+          source:''+this.hierarchialGraph.nodes[i].id,
+          target:this.hierarchialGraph.nodes[random].id
+        });
+      }
+      
     }
+   
     }
-
-    console.log("nodes: ")
-    console.log(this.hierarchialGraph.nodes)
     this.hierarchialGraph.links = [...this.hierarchialGraph.links];
     this.hierarchialGraph.nodes = [...this.hierarchialGraph.nodes];
-   });
-    // this.serverService.getAllConsumers().subscribe(
-    //   data => { 
-    //     this.consumers = data.body;
-    //     console.log("consumers ")
-    //     console.log(this.consumers)
-    //    },
-    //   err => {
-    //         console.error('eroare la get consumers');}
-    //       ,
-    //   () => {
-    //   }
-    // );
-
-    // this.serverService.getAllProducers().subscribe(
-    //   data => { 
-    //       this.producers = data.body;
-    //       console.log("producers " )
-    //       console.log(this.producers)
-    //      },
-    //   err => {
-    //     console.error('eroare la get producers');}
-    //       ,
-    //   () => {
-    //   }
-    // );
-
     
+   });   
 
+  }
+
+  contains(k1,k2):boolean{
+    for(let i=0;i<this.hierarchialGraph.links.length;i++){
+      if(this.hierarchialGraph.links[i].source==k1 && this.hierarchialGraph.links[i].target==k2
+      || this.hierarchialGraph.links[i].source==k2 && this.hierarchialGraph.links[i].target==k1)
+      return true;
+    }
+    return false;
   }
 
 }
