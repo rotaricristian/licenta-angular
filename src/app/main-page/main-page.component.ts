@@ -19,10 +19,10 @@ export class MainPageComponent implements OnInit {
       data => { console.log(data)},
       err => {
         console.error(err);
-        this.loading=false;
+        this.loading = false;
       },
       () => {
-          this.loading=false;
+          this.loading = false;
       }
     );
   }
