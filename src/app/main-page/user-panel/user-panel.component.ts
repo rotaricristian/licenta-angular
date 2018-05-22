@@ -2,6 +2,7 @@ import {Component, OnInit, AfterViewInit, Input, Output, EventEmitter} from '@an
 import {MatTabChangeEvent} from '@angular/material';
 import {ServerConnectionService} from '../../server-connection/server-connection.service';
 import {Prosumer} from '../../interfaces.type';
+import {Observable} from 'rxjs/Observable';
 
 var Highcharts = require('highcharts');
 require('highcharts-draggable-points')(Highcharts);
@@ -148,17 +149,6 @@ export class UserPanelComponent implements AfterViewInit {
         this.loading = false;
       }
     );
-    // this.serverService.getConsumers().subscribe(
-    //     data => { console.log(data)},
-    //     err => {
-    //         if(err) this.loading =false;
-    //         console.error(err);}
-    //         ,
-    //     () => {
-    //         console.log('over');
-    //         this.loading=false;
-    //     }
-    //   );
 
 
   }
@@ -273,240 +263,217 @@ export class UserPanelComponent implements AfterViewInit {
   }
 
   createGridCharts() {
-    if (this.productionChart != null) return;
-    var gridProd = [];
-    var gridCons = [];
-    var gridBalance = [];
-    this.serverService.getGridProduction().subscribe(
-      data => {
-        console.log(data);
-        //gridProd = (data.body);
-      },
-      err => {
-        console.error(err);
-      }
-      ,
-      () => {
-      }
-    );
-    this.serverService.getGridBalance().subscribe(
-      data => {
-        console.log(data);
-        //gridBalance = (data.body);
-      },
-      err => {
-        console.error(err);
-      }
-      ,
-      () => {
-      }
-    );
-    this.serverService.getGridDemand().subscribe(
-      data => {
-        console.log(data);
-        //gridCons = (data.body);
-      },
-      err => {
-        console.error(err);
-      }
-      ,
-      () => {
-      }
-    );
 
-    this.productionChart = new Highcharts.Chart({
+    // if(this.productionChart!=null) return;
+    var gridProd: any = [];
+    var gridCons: any = [];
+    var gridBalance: any = [];
 
-      chart: {
-        renderTo: 'productionContainer',
-        animation: false,
-        height: 185,
-        backgroundColor: '#DDDDDD'
-        //margin: [0, 0, 0, 0]
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
+    Observable.forkJoin(
+      this.serverService.getGridProduction(),
+      this.serverService.getGridBalance(),
+      this.serverService.getGridDemand(),
+    ).subscribe(response => {
+      gridProd = <any>response[0].body;
+      gridBalance = <any>response[1].body;
+      gridCons = <any>response[2].body;
 
-      title: {
-        text: 'Total Estimated Grid Production'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'KWh'
-        }
-      },
 
-      xAxis: {
-        title: {
-          text: 'Hour'
+      this.productionChart = new Highcharts.Chart({
+
+        chart: {
+          renderTo: 'productionContainer',
+          animation: false,
+          height: 185,
+          backgroundColor: '#DDDDDD'
+          //margin: [0, 0, 0, 0]
         },
-        //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
-      },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
 
-      plotOptions: {
-        series: {
-          // dragMaxY:500,
-          dragMinY: 0,
-          dragPrecisionY: 1,
-          color: 'green',
-          point: {
-            events: {
+        title: {
+          text: 'Total Estimated Grid Production'
+        },
+        yAxis: {
+          allowDecimals: false,
+          title: {
+            text: 'KWh'
+          }
+        },
 
-              drag: function(e) {
-              },
-              drop: function() {
-                //console.log(chart.series[0].data[0].y);
-              }
-            }
+        xAxis: {
+          title: {
+            text: 'Hour'
           },
-          stickyTracking: false
+          //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
         },
-        line: {
-          cursor: 'ns-resize'
-        }
-      },
+
+        plotOptions: {
+          series: {
+            // dragMaxY:500,
+            dragMinY: 0,
+            dragPrecisionY: 1,
+            color: 'green',
+            point: {
+              events: {
+
+                drag: function(e) {
+                },
+                drop: function() {
+                  //console.log(chart.series[0].data[0].y);
+                }
+              }
+            },
+            stickyTracking: false
+          },
+          line: {
+            cursor: 'ns-resize'
+          }
+        },
 
 
 
-      series: [{
-        data: gridProd,
-        draggableY: false
-      }]
+        series: [{
+          data: gridProd,
+          draggableY: false
+        }]
 
+      });
+
+      this.demandChart = new Highcharts.Chart({
+
+        chart: {
+          renderTo: 'consumptionContainer',
+          animation: false,
+          height: 185,
+          backgroundColor: '#DDDDDD'
+          //margin: [0, 0, 0, 0]
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+
+        title: {
+          text: 'Total Estimated Grid Consumption'
+        },
+        yAxis: {
+          allowDecimals: false,
+          title: {
+            text: 'KWh'
+          }
+        },
+
+        xAxis: {
+          title: {
+            text: 'Hour'
+          },
+          //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+        },
+
+        plotOptions: {
+          series: {
+            // dragMaxY:500,
+            dragMinY: 0,
+            dragPrecisionY: 1,
+            color: 'red',
+            point: {
+              events: {
+
+                drag: function(e) {
+                },
+                drop: function() {
+                  //console.log(chart.series[0].data[0].y);
+                }
+              }
+            },
+            stickyTracking: false
+          },
+          line: {
+            cursor: 'ns-resize'
+          }
+        },
+
+
+
+        series: [{
+          data: gridCons,
+          draggableY: false
+        }]
+
+      });
+      this.balanceChart = new Highcharts.Chart({
+
+        chart: {
+          renderTo: 'balanceContainer',
+          animation: false,
+          height: 185,
+          backgroundColor: '#DDDDDD'
+          //margin: [0, 0, 0, 0]
+        },
+        legend: {
+          enabled: false
+        },
+        credits: {
+          enabled: false
+        },
+
+        title: {
+          text: 'Estimated Grid Balance'
+        },
+        yAxis: {
+          allowDecimals: false,
+          title: {
+            text: 'KWh'
+          }
+        },
+
+        xAxis: {
+          title: {
+            text: 'Hour'
+          },
+          //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
+        },
+
+        plotOptions: {
+          series: {
+            // dragMaxY:500,
+            dragMinY: 0,
+            dragPrecisionY: 1,
+            color: 'blue',
+            point: {
+              events: {
+
+                drag: function(e) {
+                },
+                drop: function() {
+                  //console.log(chart.series[0].data[0].y);
+                }
+              }
+            },
+            stickyTracking: false
+          },
+          line: {
+            cursor: 'ns-resize'
+          }
+        },
+
+
+
+        series: [{
+          data: gridBalance,
+          draggableY: false
+        }]
+
+      });
     });
 
-    this.demandChart = new Highcharts.Chart({
-
-      chart: {
-        renderTo: 'consumptionContainer',
-        animation: false,
-        height: 185,
-        backgroundColor: '#DDDDDD'
-        //margin: [0, 0, 0, 0]
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-
-      title: {
-        text: 'Total Estimated Grid Consumption'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'KWh'
-        }
-      },
-
-      xAxis: {
-        title: {
-          text: 'Hour'
-        },
-        //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
-      },
-
-      plotOptions: {
-        series: {
-          // dragMaxY:500,
-          dragMinY: 0,
-          dragPrecisionY: 1,
-          color: 'red',
-          point: {
-            events: {
-
-              drag: function(e) {
-              },
-              drop: function() {
-                //console.log(chart.series[0].data[0].y);
-              }
-            }
-          },
-          stickyTracking: false
-        },
-        line: {
-          cursor: 'ns-resize'
-        }
-      },
-
-
-
-      series: [{
-        data: gridCons,
-        draggableY: false
-      }]
-
-    });
-    this.balanceChart = new Highcharts.Chart({
-
-      chart: {
-        renderTo: 'balanceContainer',
-        animation: false,
-        height: 185,
-        backgroundColor: '#DDDDDD'
-        //margin: [0, 0, 0, 0]
-      },
-      legend: {
-        enabled: false
-      },
-      credits: {
-        enabled: false
-      },
-
-      title: {
-        text: 'Estimated Grid Balance'
-      },
-      yAxis: {
-        allowDecimals: false,
-        title: {
-          text: 'KWh'
-        }
-      },
-
-      xAxis: {
-        title: {
-          text: 'Hour'
-        },
-        //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
-      },
-
-      plotOptions: {
-        series: {
-          // dragMaxY:500,
-          dragMinY: 0,
-          dragPrecisionY: 1,
-          color: 'blue',
-          point: {
-            events: {
-
-              drag: function(e) {
-              },
-              drop: function() {
-                //console.log(chart.series[0].data[0].y);
-              }
-            }
-          },
-          stickyTracking: false
-        },
-        line: {
-          cursor: 'ns-resize'
-        }
-      },
-
-
-
-      series: [{
-        data: gridBalance,
-        draggableY: false
-      }]
-
-    });
   }
 
 }
