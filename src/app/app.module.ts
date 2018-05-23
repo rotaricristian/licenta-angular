@@ -12,6 +12,7 @@ import {BusyModule} from 'angular2-busy';
 import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatSelectModule,
     MatGridListModule,
     MatButtonModule,
     MatTabsModule,

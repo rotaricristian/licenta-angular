@@ -20,6 +20,14 @@
               <input matInput placeholder="CNP"  [(ngModel)]="prod_cnp" >
             </mat-form-field>
 
+            <mat-form-field class="example-full-width">
+              <mat-select placeholder="Production Datasets" [(ngModel)]="selectedProduction"  (ngModelChange)="changeProduction($event)">
+                <mat-option *ngFor="let production of productionOptions" [value]="production.value">
+                  {{ production.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
             <div id="producerContainer" ></div>
           
             <div class="button-area">
@@ -42,6 +50,14 @@
             <input matInput placeholder="CNP" [(ngModel)]="cons_cnp" >
           </mat-form-field>
 
+          <mat-form-field class="example-full-width">
+            <mat-select placeholder="Consumption Datasets" [(ngModel)]="selectedConsumption"  (ngModelChange)="changeConsumption($event)">
+              <mat-option *ngFor="let consumption of consumptionOptions" [value]="consumption.value">
+                {{ consumption.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div id="consumerContainer" ></div>
         
           <div class="button-area">
@@ -50,7 +66,7 @@
 
         </mat-tab>
 
-        <mat-tab *ngIf="true"  label="Curves">
+        <mat-tab *ngIf="_showCurves"  label="Curves">
 
           <div id="productionContainer" ></div> 
           <div id="consumptionContainer" ></div> 

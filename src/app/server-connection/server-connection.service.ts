@@ -13,51 +13,53 @@ export class ServerConnectionService {
 
   constructor(private http: HttpClient) { }
 
+  private ServerIP=''+this.ServerIP+'';
+
   deployGrid(){
-        return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid', {
+        return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/grid', {
           observe: 'response'
         });
   }
 
   getGridBalance(){
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/balanceCurve', {
+    return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/grid/balanceCurve', {
       observe: 'response'
     });
   }
 
   getGridDemand(){
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/demandCurve', {
+    return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/grid/demandCurve', {
       observe: 'response'
     });
   }
 
   getGridProduction(){
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/grid/productionCurve', {
+    return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/grid/productionCurve', {
       observe: 'response'
     });
   }
 
   getAllConsumers(){
 
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/consumer', {
+    return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/consumer', {
       observe: 'response'
     });
   }
 
   getAllProducers(){
-    return this.http.get('http://192.168.0.24:8090/energyGridBlockchain/producer', {
+    return this.http.get('http://'+this.ServerIP+':8090/energyGridBlockchain/producer', {
       observe: 'response'
     });
   }
 
   addConsumer(consumer:Prosumer){
-    return this.http.post('http://192.168.0.24:8090/energyGridBlockchain/grid/consumer', 
+    return this.http.post('http://'+this.ServerIP+':8090/energyGridBlockchain/grid/consumer', 
      consumer
     );
   }
 
   addProducer(producer: Prosumer){
-    return this.http.post('http://192.168.0.24:8090/energyGridBlockchain/grid/producer', 
+    return this.http.post('http://'+this.ServerIP+':8090/energyGridBlockchain/grid/producer', 
     producer
    );
   }
