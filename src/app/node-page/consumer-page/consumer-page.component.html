@@ -24,7 +24,7 @@
 				<button type="button" (click)="checkValue($event)" mat-raised-button color="primary">Send Value</button>
 			</div>
 			<div *ngIf="isValueChecked">
-				<mat-label><h3>{{valueResponse.deviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
+				<mat-label><h3>{{isDeviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
 			</div>
 		</div>
 	</mat-grid-tile> 
