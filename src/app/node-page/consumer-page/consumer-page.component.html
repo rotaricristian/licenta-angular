@@ -1,3 +1,46 @@
-<p>
-  consumer-page works!
-</p>
+<ngx-loading [show]="loading"
+	[config]="{ backdropBorderRadius: '0px',
+  fullScreenBackdrop:true, 
+  primaryColour:'blue',
+  secondaryColour:'blue',
+  tertiaryColour:'blue' }"></ngx-loading>
+
+<div id="header" class="container text-center">
+	<h1>Consumer Page</h1>
+</div>
+
+<mat-grid-list cols="6" rowHeight="100px"> 
+	<mat-grid-tile [colspan]="3" [rowspan]="6">
+		<div class="leftPanel">
+			<div id="currentCurve" class="mb-5"></div>
+			<mat-form-field class="d-flex w-75">
+				<input matInput placeholder="Amount of energy" type="number" class="example-full-align w-100" [(ngModel)]="value">
+				<span matSuffix>KWh</span>
+			 </mat-form-field>
+			 <mat-form-field class="d-flex w-75">
+			 	<input matInput placeholder="Current index" type="number" class="example-full-align w-100" [(ngModel)]="index">
+			 </mat-form-field>
+			<div class="button-area">
+				<button type="button" (click)="checkValue($event)" mat-raised-button color="primary">Send Value</button>
+			</div>
+			<div *ngIf="isValueChecked">
+				<mat-label><h3>{{valueResponse.deviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
+			</div>
+		</div>
+	</mat-grid-tile> 
+	<mat-grid-tile [colspan]="3" [rowspan]="6">
+		<div class="rightPanel">
+			<mat-list class="mb-5">
+			  <mat-list-item>Name:&nbsp;&nbsp; <h4> {{consumer.name}}</h4></mat-list-item>
+			  <mat-divider></mat-divider>
+			  <mat-list-item>Address:&nbsp;&nbsp; <h4> {{consumer.homeAddress}}</h4></mat-list-item>
+			  <mat-divider></mat-divider>
+			  <mat-list-item>CNP:&nbsp;&nbsp; <h4> {{consumer.cnp}}</h4></mat-list-item>
+			  <mat-divider></mat-divider>
+			  <mat-list-item>Total Ethergy:&nbsp;&nbsp; <h4> {{balance}}</h4></mat-list-item>
+			  <mat-divider></mat-divider>
+			</mat-list>
+			<div id="baselineConsumption"></div>
+		</div>
+	</mat-grid-tile> 
+</mat-grid-list>

@@ -43,7 +43,7 @@ export class GraphAreaComponent implements OnInit {
   }
 
   select($event) {
-    this.router.navigate(['node', $event.id]);
+    this.router.navigate(['node/' + $event.path, $event.id]);
 
   }
 
@@ -62,6 +62,7 @@ export class GraphAreaComponent implements OnInit {
       for (var cons of this.consumers) {
         this.hierarchialGraph.nodes.push({
           id: '' + cons.cnp,
+          path: 'consumer',
           label: '' + cons.name,
           color: '#A10A28'
         });
@@ -69,6 +70,7 @@ export class GraphAreaComponent implements OnInit {
       for (var prod of this.producers) {
         this.hierarchialGraph.nodes.push({
           id: '' + prod.cnp,
+          path: 'producer',
           label: '' + prod.name,
           color: '#5AA454'
         });

@@ -12,6 +12,7 @@ import {BusyModule} from 'angular2-busy';
 import {LoadingModule} from 'ngx-loading';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -66,7 +67,8 @@ const appRoutes: Routes = [
     BusyModule,
     LoadingModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    MatListModule
   ],
   providers: [ServerConnectionService],
   bootstrap: [AppComponent]
