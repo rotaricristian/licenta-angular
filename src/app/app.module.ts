@@ -13,7 +13,7 @@ import {LoadingModule} from 'ngx-loading';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import {MatListModule} from '@angular/material/list';
-
+import {Ng2Webstorage} from "ngx-webstorage";
 
 
 import {AppComponent} from './app.component';
@@ -68,7 +68,8 @@ const appRoutes: Routes = [
     LoadingModule,
     HttpClientModule,
     MatInputModule,
-    MatListModule
+    MatListModule,
+    Ng2Webstorage
   ],
   providers: [ServerConnectionService],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 <ngx-loading [show]="loading"
 	[config]="{ backdropBorderRadius: '0px',
-  fullScreenBackdrop:true, 
+  fullScreenBackdrop:true,
   primaryColour:'blue',
   secondaryColour:'blue',
   tertiaryColour:'blue' }"></ngx-loading>
@@ -9,7 +9,7 @@
 	<h1>Consumer Page</h1>
 </div>
 
-<mat-grid-list cols="6" rowHeight="100px"> 
+<mat-grid-list cols="6" rowHeight="100px">
 	<mat-grid-tile [colspan]="3" [rowspan]="6">
 		<div class="leftPanel">
 			<div id="currentCurve" class="mb-5"></div>
@@ -18,7 +18,7 @@
 				<span matSuffix>KWh</span>
 			 </mat-form-field>
 			 <mat-form-field class="d-flex w-75">
-			 	<input matInput placeholder="Current index" type="number" class="example-full-align w-100" [(ngModel)]="index">
+			 	<input matInput placeholder="Next index" type="number" class="example-full-align w-100" [(ngModel)]="index">
 			 </mat-form-field>
 			<div class="button-area">
 				<button type="button" (click)="checkValue($event)" mat-raised-button color="primary">Send Value</button>
@@ -27,7 +27,7 @@
 				<mat-label><h3>{{isDeviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
 			</div>
 		</div>
-	</mat-grid-tile> 
+	</mat-grid-tile>
 	<mat-grid-tile [colspan]="3" [rowspan]="6">
 		<div class="rightPanel">
 			<mat-list class="mb-5">
@@ -42,5 +42,5 @@
 			</mat-list>
 			<div id="baselineConsumption"></div>
 		</div>
-	</mat-grid-tile> 
+	</mat-grid-tile>
 </mat-grid-list>
