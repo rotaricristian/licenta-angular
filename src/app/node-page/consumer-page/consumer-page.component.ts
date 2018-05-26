@@ -126,7 +126,7 @@ export class ConsumerPageComponent implements OnInit {
 
   updateHistoryCurveBasedOnIndex() {
     //let cnp = this.consumer.cnp;
-    if (this.index == 7) {
+    if (this.index % 8 == 7) {
       //call the new curve
       this.serverService.getConsumerCurrentCurve(this.cnp).subscribe(data => {
           console.log(data);

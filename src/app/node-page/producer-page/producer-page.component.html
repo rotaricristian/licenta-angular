@@ -1,3 +1,49 @@
-<p>
-  producer-page works!
-</p>
+<ngx-loading [show]="loading"
+             [config]="{ backdropBorderRadius: '0px',
+  fullScreenBackdrop:true,
+  primaryColour:'blue',
+  secondaryColour:'blue',
+  tertiaryColour:'blue' }"></ngx-loading>
+
+<div id="header" class="container text-center">
+  <h1>Producer Page</h1>
+</div>
+<mat-grid-list cols="6" rowHeight="100px">
+  <mat-grid-tile [colspan]="6" [rowspan]="3">
+    <div class="basePanel">
+      <div id="baselineConsumption"></div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="3">
+    <div class="leftPanel">
+      <mat-form-field class="d-flex w-75">
+        <input matInput placeholder="Amount of energy" type="number" class="example-full-align w-100" [(ngModel)]="value">
+        <span matSuffix>KWh</span>
+      </mat-form-field>
+      <mat-form-field class="d-flex w-75">
+        <input matInput placeholder="Next index" type="number" class="example-full-align w-100" [(ngModel)]="index">
+      </mat-form-field>
+      <div class="button-area">
+        <button type="button" (click)="registerProduction($event)" mat-raised-button color="primary">Send Value</button>
+      </div>
+      <div *ngIf="isValueChecked">
+        <mat-label><h3>{{isDeviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
+      </div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3" [rowspan]="3">
+    <div class="rightPanel">
+      <mat-list class="mb-5">
+        <mat-list-item>Name:&nbsp;&nbsp; <h4> {{producer.name}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Address:&nbsp;&nbsp; <h4> {{producer.homeAddress}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>CNP:&nbsp;&nbsp; <h4> {{producer.cnp}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Total Ethergy:&nbsp;&nbsp; <h4> {{balance}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+

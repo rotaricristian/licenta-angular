@@ -98,4 +98,9 @@ export class ServerConnectionService {
       value);
   }
 
+  registerProduction(value: Value) {
+    return this.http.post(this.ip + '/energyGridBlockchain/producer/value',
+      value);
+  }
+
 }
