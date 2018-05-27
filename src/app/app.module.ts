@@ -1,6 +1,6 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -9,12 +9,12 @@ import {MatInputModule} from '@angular/material/input';
 import {NgxGraphModule} from '@swimlane/ngx-graph';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {BusyModule} from 'angular2-busy';
-import {LoadingModule} from 'ngx-loading';
-import {HttpClientModule} from '@angular/common/http';
-import {RouterModule, Routes} from '@angular/router';
 import {MatListModule} from '@angular/material/list';
 import {Ng2Webstorage} from "ngx-webstorage";
-
+import { LoadingModule } from 'ngx-loading';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import {MatSelectModule} from '@angular/material/select';
 
 import {AppComponent} from './app.component';
 import {MainPageComponent} from './main-page/main-page.component';
@@ -59,6 +59,8 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
     MatGridListModule,
     MatButtonModule,
     MatTabsModule,
