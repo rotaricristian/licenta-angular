@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import {MatGridListModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -13,7 +13,6 @@ import { LoadingModule } from 'ngx-loading';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
-
 
 
 import { AppComponent } from './app.component';
@@ -50,6 +49,7 @@ const appRoutes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatSelectModule,
     MatGridListModule,
     MatButtonModule,

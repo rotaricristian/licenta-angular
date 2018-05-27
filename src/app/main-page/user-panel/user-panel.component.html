@@ -10,22 +10,23 @@
   
     <mat-tab label="Producer">
        
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Producer Name"  [(ngModel)]="prod_name" >
+            <mat-form-field class="example-full-width" >
+              <input matInput placeholder="Producer Name"  [(ngModel)]="prod_name" required>
             </mat-form-field>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Address"  [(ngModel)]="prod_address" >
+              <input matInput placeholder="Address"  [(ngModel)]="prod_address"  >
             </mat-form-field>
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="CNP"  [(ngModel)]="prod_cnp" >
+            <mat-form-field class="example-full-width" >
+              <input matInput placeholder="CNP"  [(ngModel)]="prod_cnp" required>
             </mat-form-field>
 
             <mat-form-field class="example-full-width">
-              <mat-select placeholder="Production Datasets" [(ngModel)]="selectedProduction"  (ngModelChange)="changeProduction($event)">
+              <mat-select placeholder="Production Datasets"  [(ngModel)]="selectedProduction"  (ngModelChange)="changeProduction($event)" required>
                 <mat-option *ngFor="let production of productionOptions" [value]="production.value">
                   {{ production.viewValue }}
                 </mat-option>
               </mat-select>
+              <!-- <mat-error *ngIf="produtionControl.hasError('required')">Please define a production baseline</mat-error> -->
             </mat-form-field>
 
             <div id="producerContainer" ></div>

@@ -3,6 +3,7 @@ import { MatTabChangeEvent, MatSelectChange } from '@angular/material';
 import { ServerConnectionService } from '../../server-connection/server-connection.service';
 import { Prosumer } from '../../interfaces.type';
 import { Observable } from 'rxjs/Observable';
+import { FormControl, Validators } from '@angular/forms';
 
 var Highcharts = require('highcharts');
 require('highcharts-draggable-points')(Highcharts);
@@ -17,6 +18,8 @@ export class UserPanelComponent implements AfterViewInit {
 
     constructor(private serverService: ServerConnectionService) { }
     
+    produtionControl = new FormControl('', [Validators.required]);
+
     productionOptions = [
         {value: 'solar', viewValue: 'Solar Panels'},
         {value: 'hydro', viewValue: 'Hydro Plant'},
@@ -92,6 +95,9 @@ export class UserPanelComponent implements AfterViewInit {
     this.serverService.addProducer(prosumer).subscribe(
               data => { 
                   this.updateGraph.emit();
+                  this.prod_address='';
+                  this.prod_name='';
+                  this.prod_cnp='';
                   console.log(data)},
               err => {
                     this.loading =false;
@@ -126,7 +132,11 @@ export class UserPanelComponent implements AfterViewInit {
     this.loading=true;
     this.serverService.addConsumer(prosumer).subscribe(
               data => { console.log(data);
-                this.updateGraph.emit();},
+                this.updateGraph.emit();
+                this.cons_address='';
+                this.cons_cnp='';
+                this.cons_name='';    
+            },
               err => {
                     this.loading =false;
                     console.error(err);}
