@@ -1,0 +1,26 @@
+body {
+  background:url('https://s3.amazonaws.com/influencive.com/wp-content/uploads/2018/02/02225414/blockchainis.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+}
+
+#header {
+  width: 80%;
+}
+
+.rightPanel, .leftPanel {
+  width: 80%;
+}
+
+.basePanel {
+  width: 90%;
+}
+
+#baselineConsumption {
+  width: 100%;
+}
+
+.mat-form-field-wrapper {
+  width: 100%;
+}

@@ -1,1 +1,16 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+html {
+	background:url('https://s3.amazonaws.com/influencive.com/wp-content/uploads/2018/02/02225414/blockchainis.jpg');
+	background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body {
+	background: rgba(255, 255, 255, 0.9);
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}

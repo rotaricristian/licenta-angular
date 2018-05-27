@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ServerConnectionService } from '../server-connection/server-connection.service';
+import {Component, OnInit} from '@angular/core';
+import {ServerConnectionService} from '../server-connection/server-connection.service';
 
 @Component({
   selector: 'main-page',
@@ -8,34 +8,33 @@ import { ServerConnectionService } from '../server-connection/server-connection.
 })
 export class MainPageComponent implements OnInit {
 
-  loading:boolean = true;
-  showCurves:boolean=false;
-  refreshGraph:boolean=false;
+  loading: boolean = true;
+  showCurves: boolean = false;
+  refreshGraph: boolean = false;
 
-  constructor(private serverService: ServerConnectionService) { }
+  constructor(private serverService: ServerConnectionService) {}
 
   ngOnInit() {
     this.serverService.deployGrid().subscribe(
-      data => { console.log(data)},
+      data => {console.log(data)},
       err => {
 
-        this.loading=false;
+        this.loading = false;
       },
       () => {
-          this.loading=false;
-
+        this.loading = false;
       }
     );
   }
 
-  startSimulation(){
+  startSimulation() {
     console.log('startSimulation')
-    this.showCurves=true;
+    this.showCurves = true;
   }
 
-  updateGraph(){
+  updateGraph() {
     console.log('update graph')
-    this.refreshGraph=!this.refreshGraph;
+    this.refreshGraph = !this.refreshGraph;
   }
 
 }
