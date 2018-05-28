@@ -11,7 +11,7 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class ServerConnectionService {
 
-  private ip = 'http://localhost:8090';
+  private ip = 'http://192.168.0.24:8090';
   constructor(private http: HttpClient) {}
 
   deployGrid() {
@@ -101,6 +101,12 @@ export class ServerConnectionService {
   registerProduction(value: Value) {
     return this.http.post(this.ip + '/energyGridBlockchain/producer/value',
       value);
+  }
+
+  startSimulation() {
+    return this.http.get(this.ip + '/energyGridBlockchain/grid/simulation', {
+      observe: 'response'
+    });
   }
 
 }

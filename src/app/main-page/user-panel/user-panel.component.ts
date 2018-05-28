@@ -56,12 +56,12 @@ export class UserPanelComponent implements AfterViewInit {
     private productionChart=null;
     private balanceChart=null;
 
-    private _showCurves:boolean =false;
+    // private _showCurves:boolean =false;
 
-    @Input() set showCurves(value: boolean) {
-        console.log(this._showCurves)
-        this._showCurves = value;
-    }
+    // @Input() set showCurves(value: boolean) {
+    //     console.log(this._showCurves)
+    //     this._showCurves = value;
+    // }
 
     @Output() updateGraph: EventEmitter<any> = new EventEmitter<any>();
   
@@ -150,7 +150,7 @@ export class UserPanelComponent implements AfterViewInit {
   onTabClick(event: MatTabChangeEvent) {
     if(event.index==1){
        
-    } else if(event.index==2 && this._showCurves){
+    } else if(event.index==2){
         this.createGridCharts();
     }
 
@@ -158,7 +158,6 @@ export class UserPanelComponent implements AfterViewInit {
 
   createGridCharts(){
 
-     // if(this.productionChart!=null) return;
       var gridProd:any=[];
       var gridCons:any=[];
       var gridBalance:any=[];
@@ -201,7 +200,7 @@ export class UserPanelComponent implements AfterViewInit {
         
             xAxis: {
               title: {
-                  text: 'Hour'
+                  text: 'General Index'
               },
                 //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
             },
@@ -266,7 +265,7 @@ export class UserPanelComponent implements AfterViewInit {
             
                 xAxis: {
                   title: {
-                      text: 'Hour'
+                      text: 'General Index'
                   },
                     //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                 },
@@ -330,7 +329,7 @@ export class UserPanelComponent implements AfterViewInit {
                 
                     xAxis: {
                       title: {
-                          text: 'Hour'
+                          text: 'General Index'
                       },
                         //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                     },
@@ -417,7 +416,7 @@ export class UserPanelComponent implements AfterViewInit {
                   title: {
                       text: 'Hour'
                   },
-                    categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
+                    //categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
                 },
             
                 plotOptions: {
@@ -505,7 +504,7 @@ export class UserPanelComponent implements AfterViewInit {
             title: {
                 text: 'Hour'
             },
-                categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
+                //categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
             },
         
             plotOptions: {

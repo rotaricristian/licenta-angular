@@ -12,13 +12,17 @@
     <mat-grid-tile  [colspan]="4" [rowspan]="6" class="h-100" >
       <div class="graph-area">
           <graph-area [refreshGraph]="refreshGraph" ></graph-area>
-          <footer (onStartSimulation)="startSimulation()"></footer>
+
+          <div *ngIf="!hideButton" class="button-area">
+            <button mat-raised-button color="primary" (click)="startSimulation()">Start Simulation</button>
+        </div>
+
       </div>
     </mat-grid-tile>
 
     <mat-grid-tile  [colspan]="2" [rowspan]="6" class="h-100" >
       <div class="user-panel">
-          <user-panel (updateGraph)="updateGraph()" [showCurves]="showCurves"></user-panel>
+          <user-panel (updateGraph)="updateGraph()" ></user-panel>
       </div>
     </mat-grid-tile>
 
