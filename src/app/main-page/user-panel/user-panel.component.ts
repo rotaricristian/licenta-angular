@@ -175,10 +175,14 @@ export class UserPanelComponent implements AfterViewInit {
         this.productionChart = new Highcharts.Chart({
         
             chart: {
+                style: {
+                    fontFamily: 'Roboto, sans-serif',
+                    color: "#c6c7cb"
+                },
                 renderTo: 'productionContainer',
                 animation: false,
                 height: 185,
-                backgroundColor: '#DDDDDD'
+                backgroundColor: '#40444f'
                 //margin: [0, 0, 0, 0]
             },
             legend: {
@@ -189,18 +193,44 @@ export class UserPanelComponent implements AfterViewInit {
           },
             
             title: {
+                style: {
+                    color: '#c6c7cb'
+                 
+                 },
                 text: 'Total Estimated Grid Production'
             },
             yAxis: {
+                labels: {
+                    style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                    }},
               allowDecimals: false,
               title: {
-                  text: 'KWh'
+                  text: 'KWh',
+                  style: {
+                    color: '#c6c7cb',
+                    fontFamily: 'Roboto, sans-serif'
+                  
+                 },
               }
             },
         
             xAxis: {
+                labels: {
+                    style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                    }},
               title: {
-                  text: 'General Index'
+                  text: 'General Index',
+                  style: {
+                    color: '#c6c7cb',
+                    fontFamily: 'Roboto, sans-serif'
+                  
+                 },
               },
                 //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
             },
@@ -210,7 +240,7 @@ export class UserPanelComponent implements AfterViewInit {
                    // dragMaxY:500,
                     dragMinY:0,
                     dragPrecisionY:1,
-                    color: 'green',
+                    color: '#43A047',
                     point: {
                         events: {
         
@@ -240,10 +270,14 @@ export class UserPanelComponent implements AfterViewInit {
         this.demandChart = new Highcharts.Chart({
             
                 chart: {
+                    style: {
+                        fontFamily: 'Roboto, sans-serif',
+                        color: "#c6c7cb"
+                    },
                     renderTo: 'consumptionContainer',
                     animation: false,
                     height: 185,
-                    backgroundColor: '#DDDDDD'
+                    backgroundColor: '#40444f'
                     //margin: [0, 0, 0, 0]
                 },
                 legend: {
@@ -254,18 +288,44 @@ export class UserPanelComponent implements AfterViewInit {
               },
                 
                 title: {
+                    style: {
+                        color: '#c6c7cb'
+                     
+                     },
                     text: 'Total Estimated Grid Consumption'
                 },
                 yAxis: {
+                    labels: {
+                        style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                        }},
                   allowDecimals: false,
                   title: {
-                      text: 'KWh'
+                      text: 'KWh',
+                      style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                     },
                   }
                 },
             
                 xAxis: {
+                    labels: {
+                        style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                        }},
                   title: {
-                      text: 'General Index'
+                      text: 'General Index',
+                      style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                     },
                   },
                     //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                 },
@@ -275,7 +335,7 @@ export class UserPanelComponent implements AfterViewInit {
                        // dragMaxY:500,
                         dragMinY:0,
                         dragPrecisionY:1,
-                        color: 'red',
+                        color: '#e53935',
                         point: {
                             events: {
             
@@ -304,10 +364,14 @@ export class UserPanelComponent implements AfterViewInit {
             this.balanceChart = new Highcharts.Chart({
                 
                     chart: {
+                        style: {
+                            fontFamily: 'Roboto, sans-serif',
+                            color: "#c6c7cb"
+                        },
                         renderTo: 'balanceContainer',
                         animation: false,
                         height: 185,
-                        backgroundColor: '#DDDDDD'
+                        backgroundColor: '#40444f'
                         //margin: [0, 0, 0, 0]
                     },
                     legend: {
@@ -318,18 +382,44 @@ export class UserPanelComponent implements AfterViewInit {
                   },
                     
                     title: {
+                        style: {
+                            color: '#c6c7cb'
+                         
+                         },
                         text: 'Estimated Grid Balance'
                     },
                     yAxis: {
+                        labels: {
+                            style: {
+                                color: '#c6c7cb',
+                                fontFamily: 'Roboto, sans-serif'
+                              
+                            }},
                       allowDecimals: false,
                       title: {
-                          text: 'KWh'
+                          text: 'KWh',
+                          style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                         },
                       }
                     },
                 
                     xAxis: {
+                        labels: {
+                            style: {
+                                color: '#c6c7cb',
+                                fontFamily: 'Roboto, sans-serif'
+                              
+                            }},
                       title: {
-                          text: 'General Index'
+                          text: 'General Index',
+                          style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                         },
                       },
                         //categories: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23']
                     },
@@ -339,7 +429,7 @@ export class UserPanelComponent implements AfterViewInit {
                            // dragMaxY:500,
                             dragMinY:0,
                             dragPrecisionY:1,
-                            color: 'blue',
+                            color: '#3949AB',
                             point: {
                                 events: {
                 
@@ -389,10 +479,14 @@ export class UserPanelComponent implements AfterViewInit {
         this.producerChart = new Highcharts.Chart({
             
                 chart: {
+                    style: {
+                        fontFamily: 'Roboto, sans-serif',
+                        color: "#c6c7cb"
+                    },
                     renderTo: 'producerContainer',
                     animation: false,
                     height: 200,
-                    backgroundColor: '#DDDDDD'
+                    backgroundColor: '#40444f'
                     //margin: [0, 0, 0, 0]
                 },
                 legend: {
@@ -402,19 +496,44 @@ export class UserPanelComponent implements AfterViewInit {
                   enabled: false
               },
                 
-                title: {
+                title: { 
+                    style: {
+                    color: '#c6c7cb'
+                 
+                 },
                     text: 'Estimated Production During the day'
                 },
                 yAxis: {
+                    labels: {
+                        style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                        }},
                   allowDecimals: false,
                   title: {
-                      text: 'KWh'
+                      text: 'KWh',
+                      style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                     },
                   }
                 },
             
                 xAxis: {
+                    labels: {
+                        style: {
+                            color: '#c6c7cb',
+                            fontFamily: 'Roboto, sans-serif'
+                          
+                        }},
                   title: {
-                      text: 'Hour'
+                      text: 'Hour',
+                      style: {
+                        color: '#c6c7cb'
+                      
+                     },
                   },
                     //categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
                 },
@@ -424,7 +543,7 @@ export class UserPanelComponent implements AfterViewInit {
                         dragMaxY:1000,
                         dragMinY:0,
                         dragPrecisionY:1,
-                        color: 'green',
+                        color: '#43A047',
                         point: {
                             events: {
             
@@ -477,11 +596,14 @@ export class UserPanelComponent implements AfterViewInit {
       this.consumerChart = new Highcharts.Chart({
         
             chart: {
+                style: {
+                    fontFamily: 'Roboto, sans-serif',
+                    color: "#c6c7cb"
+                },
                 renderTo: 'consumerContainer',
                 animation: false,
                 height: 200,
-                backgroundColor: '#DDDDDD'
-                //margin: [0, 0, 0, 0]
+                backgroundColor: '#40444f',
             },
             legend: {
             enabled: false
@@ -491,18 +613,44 @@ export class UserPanelComponent implements AfterViewInit {
         },
             
             title: {
+                style: {
+                    color: '#c6c7cb'
+                 
+                 },
                 text: 'Estimated Consumption During the day'
             },
             yAxis: {
+                labels: {
+                    style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                    }},
             allowDecimals: false,
             title: {
-                text: 'KWh'
+                text: 'KWh',
+                style: {
+                    color: '#c6c7cb',
+                    fontFamily: 'Roboto, sans-serif'
+                  
+                 },
             }
             },
         
             xAxis: {
+                labels: {
+                    style: {
+                        color: '#c6c7cb',
+                        fontFamily: 'Roboto, sans-serif'
+                      
+                    }},
             title: {
-                text: 'Hour'
+                text: 'Hour',
+                 style: {
+                    color: '#c6c7cb',
+                    fontFamily: 'Roboto, sans-serif'
+                  
+                 },
             },
                 //categories: [ '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12','13','14','15','16','17','18','19','20','21','22','23','24']
             },
@@ -512,7 +660,7 @@ export class UserPanelComponent implements AfterViewInit {
                     dragMaxY:1000,
                     dragMinY:0,
                     dragPrecisionY:1,
-                    color: 'red',
+                    color: '#e53935',
                     point: {
                         events: {
         

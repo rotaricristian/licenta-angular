@@ -40,6 +40,24 @@ export class GraphAreaComponent implements OnInit {
   autoCenter: boolean = true;
 
   ngOnInit() {
+    this.hierarchialGraph.nodes.push({
+      id: '1',
+      path: 'consumer',
+      label: '1',
+      color: '#e53935'
+    });
+
+    this.hierarchialGraph.nodes.push({
+      id: '2',
+      path: 'producer',
+      label: '2',
+      color: '#43A047'
+    });
+
+    this.hierarchialGraph.links.push({
+      source: '1',
+      target: '2'
+    });
   }
 
   select($event) {
@@ -48,7 +66,6 @@ export class GraphAreaComponent implements OnInit {
   }
 
   updateGraph() {
-    console.log('update');
     Observable.forkJoin(
       this.serverService.getAllConsumers(),
       this.serverService.getAllProducers()
@@ -64,7 +81,7 @@ export class GraphAreaComponent implements OnInit {
           id: '' + cons.cnp,
           path: 'consumer',
           label: '' + cons.name,
-          color: '#A10A28'
+          color: '#e53935'
         });
       }
       for (var prod of this.producers) {
@@ -72,7 +89,7 @@ export class GraphAreaComponent implements OnInit {
           id: '' + prod.cnp,
           path: 'producer',
           label: '' + prod.name,
-          color: '#5AA454'
+          color: '#43A047'
         });
       }
       for (var i = 0; i < this.hierarchialGraph.nodes.length; i++) {

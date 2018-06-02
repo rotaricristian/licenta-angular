@@ -4,12 +4,20 @@
 [show]="loading" 
 [config]="{ backdropBorderRadius: '0px',
   fullScreenBackdrop:true, 
-  primaryColour:'blue',
-  secondaryColour:'blue',
-  tertiaryColour:'blue' }"></ngx-loading>
+  primaryColour:'#4b525c',
+  secondaryColour:'#4b525c',
+  tertiaryColour:'#4b525c' }"></ngx-loading>
 
-<mat-grid-list cols="6" rowHeight="100px" class="h-100" >
-    <mat-grid-tile  [colspan]="4" [rowspan]="6" class="h-100" >
+<mat-grid-list cols="6" rowHeight="106px" class="h-100" >
+
+    <mat-grid-tile  [colspan]="2" [rowspan]="6" class="h-100" class="menu">
+      <div class="user-panel">
+          <user-panel (updateGraph)="updateGraph()" ></user-panel>
+      </div>
+    </mat-grid-tile>
+
+
+    <mat-grid-tile  [colspan]="4" [rowspan]="6" class="h-100" class="content">
       <div class="graph-area">
           <graph-area [refreshGraph]="refreshGraph" ></graph-area>
 
@@ -20,19 +28,7 @@
       </div>
     </mat-grid-tile>
 
-    <mat-grid-tile  [colspan]="2" [rowspan]="6" class="h-100" >
-      <div class="user-panel">
-          <user-panel (updateGraph)="updateGraph()" ></user-panel>
-      </div>
-    </mat-grid-tile>
-
-    <!-- <mat-grid-tile  [colspan]="4" [rowspan]="1"  >
-      <div>
-         <footer (onStartSimulation)="startSimulation()"></footer>
-      </div>
-    </mat-grid-tile> -->
   
 </mat-grid-list>
 
-<!-- <mat-grid-tile-footer>Footer</mat-grid-tile-footer> -->
 

@@ -19,7 +19,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {AppComponent} from './app.component';
 import {MainPageComponent} from './main-page/main-page.component';
 import {GraphAreaComponent} from './main-page/graph-area/graph-area.component';
-import {FooterComponent} from './main-page/footer/footer.component';
 import {UserPanelComponent} from './main-page/user-panel/user-panel.component';
 import {ServerConnectionService} from './server-connection/server-connection.service';
 import {ConsumerPageComponent} from './node-page/consumer-page/consumer-page.component';
@@ -46,7 +45,6 @@ const appRoutes: Routes = [
     AppComponent,
     MainPageComponent,
     GraphAreaComponent,
-    FooterComponent,
     UserPanelComponent,
     ConsumerPageComponent,
     ProducerPageComponent

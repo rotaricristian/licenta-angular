@@ -5,7 +5,7 @@
   }
   
   .example-full-width {
-    width: 95%;
+    width: 100%;
   }
 
   .prosumer-tab-group {
@@ -16,3 +16,13 @@
   .button-area{
     text-align: center;
   }
+
+  .tab-info{
+    padding-left: 15px;
+    padding-right: 35px;
+  }
+
+  .mat-input-element {
+    color:#f7ffff;
+  }
+

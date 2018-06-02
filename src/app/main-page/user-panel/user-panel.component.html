@@ -2,14 +2,19 @@
 [show]="loading" 
 [config]="{ backdropBorderRadius: '0px',
   fullScreenBackdrop:true, 
-  primaryColour:'blue',
-  secondaryColour:'blue',
-  tertiaryColour:'blue' }"></ngx-loading>
+  primaryColour:'#4b525c',
+  secondaryColour:'#4b525c',
+  tertiaryColour:'#4b525c' }"></ngx-loading>
 
-<mat-tab-group class="prosumer-tab-group" (selectedTabChange)="onTabClick($event)">
+  <div class="prosumer-tab-group">
+
+       <h1 class="mat-headline" style="color: #c6c7cb;padding-left:10px;">  Network Graph</h1>
+
+<mat-tab-group  (selectedTabChange)="onTabClick($event)" >
   
+
     <mat-tab label="Producer">
-       
+      <div class="tab-info">
             <mat-form-field class="example-full-width" >
               <input matInput placeholder="Producer Name"  [(ngModel)]="prod_name" >
             </mat-form-field>
@@ -33,13 +38,12 @@
             <div class="button-area">
                 <button type="button" (click)="addProducer($event)" mat-raised-button color="primary">Add Producer</button>
             </div>
-            
-     
+            </div>     
           
       </mat-tab>
 
-      <mat-tab label="Consumer">
-       
+      <mat-tab  label="Consumer">
+       <div class="tab-info">
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Consumer Name"  [(ngModel)]="cons_name" >
           </mat-form-field>
@@ -64,14 +68,17 @@
               <button type="button" (click)="addConsumer($event)" mat-raised-button color="primary">Add Consumer</button>
           </div>
 
+        </div>
         </mat-tab>
 
         <mat-tab  label="Curves">
-
-          <div id="productionContainer" ></div> 
-          <div id="consumptionContainer" ></div> 
-          <div id="balanceContainer" ></div>        
-
+          <div class="tab-info">
+            <div id="productionContainer" ></div> 
+            <div id="consumptionContainer" ></div> 
+            <div id="balanceContainer" ></div>        
+          </div>
           </mat-tab>
 
       </mat-tab-group>
+
+    </div>

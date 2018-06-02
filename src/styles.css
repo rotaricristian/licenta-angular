@@ -1,7 +1,9 @@
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+
 html {
-	background:url('https://s3.amazonaws.com/influencive.com/wp-content/uploads/2018/02/02225414/blockchainis.jpg');
+	/* background:url('https://s3.amazonaws.com/influencive.com/wp-content/uploads/2018/02/02225414/blockchainis.jpg'); */
 	background-size: cover;
     background-repeat: no-repeat;
 }
