@@ -40,24 +40,7 @@ export class GraphAreaComponent implements OnInit {
   autoCenter: boolean = true;
 
   ngOnInit() {
-    this.hierarchialGraph.nodes.push({
-      id: '1',
-      path: 'consumer',
-      label: '1',
-      color: '#e53935'
-    });
 
-    this.hierarchialGraph.nodes.push({
-      id: '2',
-      path: 'producer',
-      label: '2',
-      color: '#43A047'
-    });
-
-    this.hierarchialGraph.links.push({
-      source: '1',
-      target: '2'
-    });
   }
 
   select($event) {
