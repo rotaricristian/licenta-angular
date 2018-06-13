@@ -1,23 +1,23 @@
 <!-- <div [ngBusy]="{busy: busy, message: 'Please Wait', backdrop: true, delay: 0, minDuration: 600}"></div> -->
 
-<ngx-loading 
-[show]="loading" 
+<ngx-loading
+[show]="loading"
 [config]="{ backdropBorderRadius: '0px',
-  fullScreenBackdrop:true, 
+  fullScreenBackdrop:true,
   primaryColour:'#4b525c',
   secondaryColour:'#4b525c',
   tertiaryColour:'#4b525c' }"></ngx-loading>
 
 <mat-grid-list cols="6" rowHeight="106px" class="h-100" >
 
-    <mat-grid-tile  [colspan]="2" [rowspan]="6" class="h-100" class="menu">
+    <mat-grid-tile  [colspan]="2" [rowspan]="6" class="menu h-100">
       <div class="user-panel">
           <user-panel (updateGraph)="updateGraph()" ></user-panel>
       </div>
     </mat-grid-tile>
 
 
-    <mat-grid-tile  [colspan]="4" [rowspan]="6" class="h-100" class="content">
+    <mat-grid-tile  [colspan]="4" [rowspan]="6" class="content h-100">
       <div class="graph-area">
           <graph-area [refreshGraph]="refreshGraph" ></graph-area>
 
@@ -28,7 +28,7 @@
       </div>
     </mat-grid-tile>
 
-  
+
 </mat-grid-list>
 
 

@@ -177,11 +177,14 @@ export class ProducerPageComponent implements OnInit {
     this.curve = new Highcharts.Chart(
       {
         chart: {
+          style: {
+            fontFamily: 'Roboto, sans-serif',
+            color: "#607d8b"
+          },
           renderTo: 'baselineConsumption',
           animation: false,
-          height: 250,
-          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-          type: 'areaspline',
+          height: 350,
+          backgroundColor:'rgba(255, 255, 255, 0.0)',
           zoomType: 'xy'
         },
         legend: {
@@ -192,26 +195,58 @@ export class ProducerPageComponent implements OnInit {
         },
 
         title: {
+          style: {
+            color: '#607d8b',
+            fontSize: "25px"
+          },
           text: 'Baseline Production'
         },
         yAxis: {
+          gridLineColor: '#607d8b',
+          labels: {
+            style: {
+              color: '#607d8b',
+              fontSize: "14px",
+              fontFamily: 'Roboto, sans-serif'
+            }
+          },
           allowDecimals: false,
           title: {
-            text: 'KWh'
+            text: 'KWh',
+            style: {
+              color: '#607d8b',
+              fontSize: "18px",
+              fontFamily: 'Roboto, sans-serif'
+            }
           }
         },
         tooltip: {
           shared: true,
-          valueSuffix: ' KWh'
+          valueSuffix: ' KWh',
+          style: {
+            fontFamily: 'Roboto, sans-serif'
+          }
         },
         xAxis: {
+          labels: {
+            style: {
+              fontSize: "14px",
+              color: '#607d8b',
+              fontFamily: 'Roboto, sans-serif'
+            }
+          },
           title: {
-            text: 'Index'
+            text: 'Index',
+            style: {
+              color: '#607d8b',
+              fontSize: "18px",
+              fontFamily: 'Roboto, sans-serif'
+            }
           },
           plotBands: [{
             from: 0,
             to: this.index - 1,
-            color: 'rgba(244, 149, 66, .2)'
+            color: 'rgba(198, 199, 203, .2)'
           }]
         },
 
@@ -222,6 +257,7 @@ export class ProducerPageComponent implements OnInit {
           series: {
             dragMinY: 0,
             dragPrecisionY: 1,
+            color: '#32CD32',
             point: {
               events: {
 
@@ -234,7 +270,14 @@ export class ProducerPageComponent implements OnInit {
             stickyTracking: false
           },
           line: {
-            cursor: 'ns-resize'
+            cursor: 'ns-resize',
+            dataLabels: {
+              enabled: true,
+              style: {
+                color: '#607d8b',
+                fontFamily: 'Roboto, sans-serif'
+              }
+            }
           }
         },
         series: [
@@ -247,7 +290,8 @@ export class ProducerPageComponent implements OnInit {
             name: 'Real',
             data: this.localStorage.retrieve(this.cnp + this.HISTORY_BASE_CURVE),
             draggableY: false,
-            dashStyle: 'longdash'
+            dashStyle: 'longdash',
+            color: '#663399'
           }
         ]
 

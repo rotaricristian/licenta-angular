@@ -1,8 +1,14 @@
-body {
-  background:url('https://s3.amazonaws.com/influencive.com/wp-content/uploads/2018/02/02225414/blockchainis.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.5;
+.menu {
+  background: #40444f;
+}
+
+.menu-content {
+  background: #4b525c;
+}
+
+.content {
+  background-image: url("../../../background.jpg");
+  background: rgba(236, 239, 241, 0.7);
 }
 
 #header {
@@ -23,4 +29,30 @@ body {
 
 .mat-form-field-wrapper {
   width: 100%;
+}
+
+.mat-list-item {
+  color: #c6c7cb;
+  font-size: 1.3em;
+}
+
+.mat-input-element {
+  color: slategray;
+}
+
+.userData {
+  color: #f7ffff;
+  margin-top: 5%;
+  margin-left: 5%;
+  font-size: 1em;
+}
+
+mat-form-field.mat-form-field-underline {
+  color: #c6c7cb;
+}
+
+#amountEnergy {
+  display: table;
+  text-align: center;
+  margin: auto;
 }

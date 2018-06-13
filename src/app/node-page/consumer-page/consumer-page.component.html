@@ -1,46 +1,47 @@
 <ngx-loading [show]="loading"
 	[config]="{ backdropBorderRadius: '0px',
   fullScreenBackdrop:true,
-  primaryColour:'blue',
-  secondaryColour:'blue',
-  tertiaryColour:'blue' }"></ngx-loading>
+  primaryColour:'#4b525c',
+  secondaryColour:'#4b525c',
+  tertiaryColour:'#4b525c' }"></ngx-loading>
 
-<div id="header" class="container text-center">
-	<h1>Consumer Page</h1>
-</div>
-
-<mat-grid-list cols="6" rowHeight="100px">
-	<mat-grid-tile [colspan]="3" [rowspan]="6">
-		<div class="leftPanel">
-			<div id="currentCurve" class="mb-5"></div>
-			<mat-form-field class="d-flex w-75">
-				<input matInput placeholder="Amount of energy" type="number" class="example-full-align w-100" [(ngModel)]="value">
-				<span matSuffix>KWh</span>
-			 </mat-form-field>
-			 <mat-form-field class="d-flex w-75">
-			 	<input matInput placeholder="Next index" type="number" class="example-full-align w-100" [(ngModel)]="index">
-			 </mat-form-field>
-			<div class="button-area">
-				<button type="button" (click)="checkValue($event)" mat-raised-button color="primary">Send Value</button>
-			</div>
-			<div *ngIf="isValueChecked">
-				<mat-label><h3>{{isDeviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
-			</div>
-		</div>
+<mat-grid-list cols="6" rowHeight="100px" class="h-100">
+	<mat-grid-tile [colspan]="2" [rowspan]="6" class="h-100 menu">
+    <div class="rightPanel">
+      <h1 class="mat-headline" style="color: #c6c7cb;padding-left:10px; margin-top: -10%; position: absolute">Consumer</h1>
+      <mat-list class="mb-5">
+        <mat-list-item>Name:&nbsp;&nbsp; <h4 class="userData"> {{consumer.name}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Address:&nbsp;&nbsp; <h4 class="userData"> {{consumer.homeAddress}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>CNP:&nbsp;&nbsp; <h4 class="userData"> {{consumer.cnp}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Total Ethergy:&nbsp;&nbsp; <h4 class="userData"> {{balance}}</h4></mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+      <div id="baselineConsumption"></div>
+    </div>
 	</mat-grid-tile>
-	<mat-grid-tile [colspan]="3" [rowspan]="6">
-		<div class="rightPanel">
-			<mat-list class="mb-5">
-			  <mat-list-item>Name:&nbsp;&nbsp; <h4> {{consumer.name}}</h4></mat-list-item>
-			  <mat-divider></mat-divider>
-			  <mat-list-item>Address:&nbsp;&nbsp; <h4> {{consumer.homeAddress}}</h4></mat-list-item>
-			  <mat-divider></mat-divider>
-			  <mat-list-item>CNP:&nbsp;&nbsp; <h4> {{consumer.cnp}}</h4></mat-list-item>
-			  <mat-divider></mat-divider>
-			  <mat-list-item>Total Ethergy:&nbsp;&nbsp; <h4> {{balance}}</h4></mat-list-item>
-			  <mat-divider></mat-divider>
-			</mat-list>
-			<div id="baselineConsumption"></div>
-		</div>
+	<mat-grid-tile [colspan]="4" [rowspan]="6" class="content h-100">
+    <div class="leftPanel">
+      <div id="currentCurve" class="mb-5"></div>
+      <div id="amountEnergy">
+        <mat-form-field class="d-flex w-75 mt-5">
+          <mat-label style="color: slategray">Amount of energy</mat-label>
+          <input matInput type="number" class="example-full-align w-100" [(ngModel)]="value">
+          <span matSuffix style="color: slategray">KWh</span>
+        </mat-form-field>
+        <mat-form-field class="d-flex w-75">
+          <mat-label style="color: slategray">Next index</mat-label>
+          <input matInput type="number" class="example-full-align w-100" [(ngModel)]="index">
+        </mat-form-field>
+        <div class="button-area">
+          <button type="button" (click)="checkValue($event)" mat-raised-button color="primary">Send Value</button>
+        </div>
+        <div *ngIf="isValueChecked">
+          <mat-label><h3>{{isDeviationOccurred ? 'Deviation Occurred' : 'No deviation occurred'}}</h3></mat-label>
+        </div>
+      </div>
+    </div>
 	</mat-grid-tile>
 </mat-grid-list>
