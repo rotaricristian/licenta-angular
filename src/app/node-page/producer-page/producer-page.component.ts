@@ -291,7 +291,7 @@ export class ProducerPageComponent implements OnInit {
             data: this.localStorage.retrieve(this.cnp + this.HISTORY_BASE_CURVE),
             draggableY: false,
             dashStyle: 'longdash',
-            color: '#663399'
+            color: '#9370DB'
           }
         ]
 
