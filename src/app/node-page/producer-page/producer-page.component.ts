@@ -272,7 +272,7 @@ export class ProducerPageComponent implements OnInit {
           line: {
             cursor: 'ns-resize',
             dataLabels: {
-              enabled: true,
+              enabled: false,
               style: {
                 color: '#607d8b',
                 fontFamily: 'Roboto, sans-serif'

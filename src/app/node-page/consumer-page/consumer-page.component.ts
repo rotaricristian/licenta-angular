@@ -106,7 +106,6 @@ export class ConsumerPageComponent implements OnInit {
         console.log(data);
         this.valueResponse = data as ValueResponse;
         console.log(this.valueResponse);
-        this.index++;
         this.isDeviationOccurred = this.valueResponse.deviationOccurred;
 
       },
@@ -117,10 +116,6 @@ export class ConsumerPageComponent implements OnInit {
       () => {
         console.log('Intrat in complete!');
         this.updateHistoryCurveBasedOnIndex();
-        this.generateCurrentCurve();
-        this.updateActualBalance();
-        this.isValueChecked = true;
-        this.loading = false;
       });
   }
 
@@ -140,13 +135,22 @@ export class ConsumerPageComponent implements OnInit {
         () => {
           this.localStorage.clear(this.cnp + this.HISTORY_CURVE);
           this.updateHistoryCurveAndIndex();
+          this.generateCurrentCurve();
+          this.updateActualBalance();
+          this.isValueChecked = true;
+          this.loading = false;
         });
     } else {
       this.updateHistoryCurveAndIndex();
+      this.generateCurrentCurve();
+      this.updateActualBalance();
+      this.isValueChecked = true;
+      this.loading = false;
     }
   }
 
   updateHistoryCurveAndIndex() {
+    this.index++;
     let historyCurve = this.localStorage.retrieve(this.cnp + this.HISTORY_CURVE);
 
     if (historyCurve == null || isUndefined(historyCurve)) {
@@ -392,7 +396,7 @@ export class ConsumerPageComponent implements OnInit {
           line: {
             cursor: 'ns-resize',
             dataLabels: {
-              enabled: true,
+              enabled: false,
               style: {
                 color: '#c6c7cb',
                 fontFamily: 'Roboto, sans-serif'

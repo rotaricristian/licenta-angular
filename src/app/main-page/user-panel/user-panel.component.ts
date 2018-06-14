@@ -175,6 +175,7 @@ export class UserPanelComponent implements AfterViewInit {
         this.productionChart = new Highcharts.Chart({
         
             chart: {
+                zoomType:'xy',
                 style: {
                     fontFamily: 'Roboto, sans-serif',
                     color: "#c6c7cb"
@@ -270,6 +271,7 @@ export class UserPanelComponent implements AfterViewInit {
         this.demandChart = new Highcharts.Chart({
             
                 chart: {
+                    zoomType:'xy',
                     style: {
                         fontFamily: 'Roboto, sans-serif',
                         color: "#c6c7cb"
@@ -364,6 +366,7 @@ export class UserPanelComponent implements AfterViewInit {
             this.balanceChart = new Highcharts.Chart({
                 
                     chart: {
+                        zoomType:'xy',
                         style: {
                             fontFamily: 'Roboto, sans-serif',
                             color: "#c6c7cb"
@@ -429,7 +432,7 @@ export class UserPanelComponent implements AfterViewInit {
                            // dragMaxY:500,
                             dragMinY:0,
                             dragPrecisionY:1,
-                            color: '#3949AB',
+                            color: '#FFEB3B',
                             point: {
                                 events: {
                 
