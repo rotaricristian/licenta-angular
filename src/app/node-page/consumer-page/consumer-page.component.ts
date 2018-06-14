@@ -51,6 +51,9 @@ export class ConsumerPageComponent implements OnInit {
   public index = 0;
   public cnp = '';
 
+  public categories1 = [0, 1, 2, 3, 4, 5, 6, 7];
+  public categories2 = [8, 9, 10, 11, 12, 13, 14, 15];
+
   //public currentIndex = 2;
 
   ngOnInit() {
@@ -238,6 +241,7 @@ export class ConsumerPageComponent implements OnInit {
           }
         },
         xAxis: {
+          categories: this.index > 7 ? this.categories2 : this.categories1,
           labels: {
             style: {
               fontSize: "14px",
